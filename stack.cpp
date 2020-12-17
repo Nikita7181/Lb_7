@@ -18,7 +18,6 @@ struct Stack
 
 void constructor(Stack& myStack)
 {
-    myStack.first= nullptr;
     myStack.last= nullptr;
 }
 
@@ -77,26 +76,62 @@ element pop(Stack& myStack)
     return r;
 }
 
+void print_element(element* myStack)
+{
+    if (myStack != nullptr)
+    {
+        print_element(myStack -> prev);
+        cout << myStack -> value << " ";
+    }
+}
+
+void print_struct(Stack& myStack)
+{
+    print_element(myStack.last);
+    std::cout << std::endl;
+}
+
+void del_elem(element* myStack)
+{
+    if (myStack != nullptr)
+    {
+        del_elem(myStack -> prev);
+        delete myStack;
+    }
+}
+
 int main()
 {
-   Stack mystack;
-   constructor(mystack);
-   element st_element;
-   int k;
-    for (int i = 0; i < 5 ; ++i)
-    {
-        cin >> k;
-        st_element.value = k;
-        push(mystack, st_element);
+    Stack myStack;
+    constructor(myStack);
+    element element;
+    int a;
+    for (int i = 0; i < 5; ++i) {
+        std::cin >> a;
+        element.value = a;
+        push(myStack, element);
     }
-    cout <<"Size:" << size(mystack) << endl;
-    st_element = pop(mystack);
-    cout << "The first element:" << st_element.value << endl;
-    st_element = pop(mystack);
-    cout << "The first element:" << st_element.value << endl;
-    st_element = pop(mystack);
-    cout << "The first element:" << st_element.value << endl;
-    cout <<"size:" << size(mystack) << endl;
-    destructor(mystack);
+    print_struct(myStack);
+    cout << "there is " << size(myStack) << " in stack." << endl;
+    element = pop(myStack);
+    cout << "Get the last element from stack. It is " << element.value << endl;
+    print_struct(myStack);
+    element = pop(myStack);
+    cout << "Get the last element from stack. It is " << element.value << endl;
+    print_struct(myStack);
+    element = pop(myStack);
+    cout << "Get the last element from stack. It is " << element.value << endl;
+    print_struct(myStack);
+    std::cout << "there is " << size(myStack) << " in stack." << endl;
+    std::cin >> a;
+    element.value = a;
+    push(myStack, element);
+    std::cout << "there is " << size(myStack) << " in stack." << endl;
+    element = pop(myStack);
+    cout << "Get the last element from stack. It is " << element.value << endl;
+    cout << "there is " << size(myStack) << " in stack." << endl;
+    print_struct(myStack);
+    destructor(myStack);
     return 0;
+
 }
