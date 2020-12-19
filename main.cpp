@@ -27,16 +27,16 @@ void constructor(Queue& myQueue) // конструктор
 
 void push(Queue& myQueue, element& myelement)// функция заполнения
 {
-    element* newQ_e = new element;// выделяем память под ячейки
-    newQ_e -> value = myelement.value;
+    element* q = new element;// выделяем память под ячейки
+    q -> value = myelement.value; 
     if (myQueue.first == nullptr)// проверяем на заполненность
     {
-        myQueue.first = newQ_e;
-        myQueue.last = newQ_e;
+        myQueue.first = q;// присваемпервому элементу и конец и начала списка
+        myQueue.last = q;
     } else
     {
-        myQueue.last -> q_next = newQ_e;
-        myQueue.last = newQ_e;
+        myQueue.last -> q_next = q;// присваеваем временной пременной следующее значения 
+        myQueue.last = q;// присваеваем новому элементу конец очереди
     }
     myQueue.count ++;// счетчик элементов
     
