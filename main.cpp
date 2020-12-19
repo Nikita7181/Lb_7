@@ -7,13 +7,13 @@ using std::cin;
 
 struct element // описание элемента очереди
 {
-    element* q_next = nullptr;// указатель на следующий элемнт 
+    element* q_next = nullptr;// указатель на следующий элемнт
     int value ;// значение ячейки
 };
 
 struct Queue // описание самой очереди
 {
-    element* first;// указатель на превый элемент 
+    element* first;// указатель на превый элемент
     element* last;// указатель на последний элемент
     int count; // счетчик элементов
 };
@@ -25,17 +25,17 @@ void constructor(Queue& myQueue) // конструктор
     myQueue.count = 0;// обнуляем счетчик
 }
 
-void push(Queue& myQueue, element& myelement)// функция заполнения 
+void push(Queue& myQueue, element& myelement)// функция заполнения
 {
     element* newQ_e = new element;// выделяем память под ячейки
     newQ_e -> value = myelement.value;
-    if (myQueue.first == nullptr)// проверяем на заполненность 
+    if (myQueue.first == nullptr)// проверяем на заполненность
     {
         myQueue.first = newQ_e;
         myQueue.last = newQ_e;
     } else
     {
-        myQueue.last -> q_next = newQ_e; 
+        myQueue.last -> q_next = newQ_e;
         myQueue.last = newQ_e;
     }
     myQueue.count ++;// счетчик элементов
@@ -82,15 +82,15 @@ int main()
     Queue myQueue;
     constructor(myQueue);
     element element;
-    int a;
+    int new1;
     int c;
     cout << "Enter the number of element = ";
     cin >> c;
     for (int i = 1; i <= c; ++i)
     {
         cout << "enter " << i << " element:";
-        cin >> a;
-        element.value = a;
+        cin >> new1;
+        element.value = new1;
         push(myQueue, element);
     }
     print(myQueue);
