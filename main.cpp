@@ -6,87 +6,77 @@ using std::string;
 using std::cin;
 
 struct element
-        {
-element* q_next = nullptr;
-int value = -7;
+{
+    element* q_next = nullptr;
+    int value ;
 };
 
 struct Queue
-        {
+{
     element* first;
     element* last;
+    int count;
 };
 
 void constructor(Queue& myQueue)
 {
     myQueue.first = nullptr;
     myQueue.last = nullptr;
+    myQueue.count = 0;
 }
+
 
 void push(Queue& myQueue, element& l)
 {
     element* newQ_e = new element;
     newQ_e -> value = l.value;
-    if (myQueue.first == nullptr) {
+    if (myQueue.first == nullptr)
+    {
         myQueue.first = newQ_e;
         myQueue.last = newQ_e;
-        
-    } else if (myQueue.first != nullptr) {
+    } else
+    {
         myQueue.last -> q_next = newQ_e;
         myQueue.last = newQ_e;
     }
+    myQueue.count ++;
     
 }
 
-element pop(Queue& myQueue)
+int size(Queue& myQueue)
 {
-    int a = myQueue.first -> value;
-    element z;
-    myQueue.first = myQueue.first -> q_next;
-    z.value = a;
-    z.q_next = myQueue.first;
-    return z;
-}
-
- int size(Queue& myQueue)
-{
-    element* c = new element;
-    c = myQueue.first;
-    unsigned int counter = 0;
-    while (c != nullptr) {
-        counter++;
-        c = c -> q_next;
-    }
-    delete c;
-    return counter;
+  return myQueue.count;
 }
 
 void print(Queue& myQueue)
 {
-    element* c = new element;
-    c = myQueue.first;
-    while (c != nullptr) {
-        cout << c -> value << " ";
-        c = c -> q_next;
+    element* temp = myQueue.first;
+    while (temp != nullptr)
+    {
+        int element = temp -> value;
+        cout << element << " ";
+        temp = temp -> q_next;
     }
-    cout << endl;
-    delete c;
 }
 
-void del(element* myQueue)
+void pop_front(Queue &myQueue)
 {
-    if (myQueue != nullptr)
-    {
-        del(myQueue -> q_next);
-        delete myQueue;
-    }
+    element  *temp = myQueue.first;
+     myQueue.first = myQueue.first -> q_next;
+     delete temp;
+     myQueue.count --;
 }
 
 void destructor (Queue& myQueue)
 {
-    del(myQueue.first);
+    while (myQueue.first != nullptr)
+    {
+        element* temp = temp = myQueue.first;
+        myQueue.first = myQueue.first -> q_next;
+        delete temp;
+        myQueue.count --;
+    }
 }
-
 
 int main()
 {
@@ -94,21 +84,24 @@ int main()
     constructor(myQueue);
     element element;
     int a;
-    for (int i = 0; i < 5; ++i) {
-        std::cin >> a;
+    int c;
+    cout << "Enter the number of element = ";
+    cin >> c;
+    for (int i = 1; i <= c; ++i)
+    {
+        cout << "enter " << i << " element:";
+        cin >> a;
         element.value = a;
         push(myQueue, element);
     }
     print(myQueue);
-    cout << "there is " << size(myQueue) << " in queue." << endl;
-    element = pop(myQueue);
-    cout << "Get the first element from queue. It is " << element.value << endl;
-    element = pop(myQueue);
-    std::cout << "Get the first element from queue. It is " << element.value << endl;
-    element = pop(myQueue);
-    cout << "Get the first element from queue. It is " << element.value << endl;
-    cout << "there is " << size(myQueue) << " in queue." << endl;
+    cout << endl;
+    cout << "Size:" << size(myQueue) << endl;
+    cout << "get the first element: " << myQueue.first -> value << endl;
+    pop_front(myQueue);
+    cout << "Size:" << size(myQueue) << endl;
     print(myQueue);
     destructor(myQueue);
+    cout << "there is " << size(myQueue) << " in queue" << endl;
     return 0;
 }
