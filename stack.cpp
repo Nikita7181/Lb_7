@@ -1,137 +1,108 @@
 #include <iostream>
+
 using std::endl;
 using std::cout;
 using std::string;
 using std::cin;
 
-struct element
+struct element // описание элемента стек
 {
-    element* prev = nullptr;
-    int value;
+    element* prev = nullptr; // указатель на предыдущий элемент
+    int value; // ячейка для хранения информации
 };
 
-struct Stack
+struct Stack // описание самого стека
 {
-    element* first;
-    element* last;
+    element* first; // указатель на первый элемент
+    element* last;// указатель на последний элемент
+    int count; // счетчик элементов
 };
 
-void constructor(Stack& myStack)
+void constructor(Stack& myStack)// конструктор
 {
-    myStack.last= nullptr;
+    myStack.first = nullptr;// обнуляем адресс первого элемента
+    myStack.last= nullptr;// обнуляем адресс последнего элемента
+    myStack.count= 0;// обнуляем счетчик
 }
 
-void destructor(Stack& myStack)
+void destructor(Stack& myStack)// деструктор(работает, как pop)
 {
-    while (myStack.first != nullptr)
+    while (myStack.last != nullptr)
     {
-        element* tmp = new element;
+        element* tmp;
         tmp=myStack.last;
-        myStack.last=(*myStack.first).prev;
+        myStack.last=myStack.last -> prev;
         delete tmp;
+        myStack.count --;
     }
 }
 
-unsigned int size(Stack& myStack)
+unsigned int size(Stack& myStack)// функция для вывода размера стек
 {
-    element* size_s = new element;
-    size_s = myStack.last;
-    unsigned int counter = 0;
-    while (size_s != nullptr)
+    return myStack.count;// обращение к счетчику элемнтов
+}
+
+void push(Stack& myStack, element& myelement)
+{
+     element* tmp = new element;// выделяем память под ячейки
+     tmp -> value = myelement.value;
+     if (myStack.first == nullptr)// проверяем на заполненность
+     {
+         myStack.first = tmp;// присваемпервому элементу и конец и начала стекаж
+         myStack.last = tmp;
+     }
+     else
+         {
+         tmp -> prev = myStack.last;// присваеваем временной пременной предыдущее значения
+             myStack.last = tmp;// присваеваем новому элементу конец стека
+     }
+     myStack.count ++; // счетчик элементов
+}
+
+element pop_last(Stack& myStack)// функция удаления последнего элемента
+{
+    element  *temp = myStack.last;// временная переменная, чтобы запомнить конец списка
+    myStack.last = myStack.last -> prev;//назначаем концом списка второй элемен
+    delete temp;// удаляем последний элемент, записанный во временную переменную
+    myStack.count --;// уменьшаем счетчик
+}
+
+void print(Stack& myStack)// функция печати
+{
+    element * temp = myStack.last;
+    while (temp != nullptr)
     {
-        ++counter;
-        size_s = (*size_s).prev;
+        int element = temp -> value;// вытаскиваем значение из последнего элемента
+        cout << element << endl;// обычный вывод
+        temp = temp -> prev;// переходим к предыдущему элементу
     }
-    return counter;
-}
-
-void push(Stack& myStack, element& l)
-{
-    if (myStack.first == nullptr)
-    {
-        element* new_s= new element;
-        (*new_s).value = l.value;
-        myStack.first = new_s;
-        myStack.last = new_s;
-    } else if (myStack.first != nullptr)
-    {
-        element* new_s = new element;
-        (*new_s).value = l.value;
-        (*new_s).prev = new_s;
-        myStack.last = new_s;
-
-    }
-}
-
-element pop(Stack& myStack)
-{
-    int k = (*myStack.last).value;
-    element r;
-    element* tmp = new element;
-    tmp = myStack.first;
-    myStack.first=(*myStack.last).prev;
-    delete tmp;
-    r.value = k;
-    r.prev = myStack.last;
-    return r;
-}
-
-void print_element(element* myStack)
-{
-    if (myStack != nullptr)
-    {
-        print_element(myStack -> prev);
-        cout << myStack -> value << " ";
-    }
-}
-
-void print_struct(Stack& myStack)
-{
-    print_element(myStack.last);
-    std::cout << std::endl;
-}
-
-void del_elem(element* myStack)
-{
-    if (myStack != nullptr)
-    {
-        del_elem(myStack -> prev);
-        delete myStack;
-    }
+    
 }
 
 int main()
 {
     Stack myStack;
     constructor(myStack);
-    element element;
-    int a;
-    for (int i = 0; i < 5; ++i) {
-        std::cin >> a;
-        element.value = a;
-        push(myStack, element);
+    element myelement;
+    int new1;
+    int k;
+    cout << "Enter the number of element = ";
+    cin >> k;
+    for (int i = 1; i <= k; ++i)
+    {
+        cout << "enter " << "{"<< i << "}" << " =";
+        cin >> new1;
+        myelement.value = new1;
+        push(myStack, myelement);
     }
-    print_struct(myStack);
-    cout << "there is " << size(myStack) << " in stack." << endl;
-    element = pop(myStack);
-    cout << "Get the last element from stack. It is " << element.value << endl;
-    print_struct(myStack);
-    element = pop(myStack);
-    cout << "Get the last element from stack. It is " << element.value << endl;
-    print_struct(myStack);
-    element = pop(myStack);
-    cout << "Get the last element from stack. It is " << element.value << endl;
-    print_struct(myStack);
-    std::cout << "there is " << size(myStack) << " in stack." << endl;
-    std::cin >> a;
-    element.value = a;
-    push(myStack, element);
-    std::cout << "there is " << size(myStack) << " in stack." << endl;
-    element = pop(myStack);
-    cout << "Get the last element from stack. It is " << element.value << endl;
-    cout << "there is " << size(myStack) << " in stack." << endl;
-    print_struct(myStack);
+    print(myStack);
+    cout << endl;
+    cout << "Size:" << size(myStack) << endl;
+    cout << "get the last element: " << myStack.last -> value << endl;
+    pop_last(myStack);
+    cout << "Size:" << size(myStack) << endl;
+    print(myStack);
     destructor(myStack);
+    cout << "there is " << size(myStack) << " in queue" << endl;
     return 0;
-
 }
