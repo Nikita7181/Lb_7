@@ -88,7 +88,7 @@ int main()
     cin >> c;
     for (int i = 1; i <= c; ++i)
     {
-        cout << "enter " << i << " element:";
+        cout << "enter " << "{" <<i << "}" << " element:";
         cin >> new1;
         element.value = new1;
         push(myQueue, element);
