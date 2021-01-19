@@ -58,7 +58,7 @@ void push(Stack& myStack, element& myelement)
 
 element pop_last(Stack& myStack)// функция удаления последнего элемента
 {
-    cout << "The lst element: " << myStack.last -> prev << endl;
+    cout << "The lst element: " << myStack.last -> value << endl;
     element  *temp = myStack.last;// временная переменная, чтобы запомнить конец списка
     myStack.last = myStack.last -> prev;//назначаем концом списка второй элемен
     delete temp;// удаляем последний элемент, записанный во временную переменную
@@ -96,7 +96,6 @@ int main()
     print(myStack);
     cout << endl;
     cout << "Size:" << size(myStack) << endl;
-    cout << "get the last element: " << myStack.last -> value << endl;
     pop_last(myStack);
     cout << "Size:" << size(myStack) << endl;
     print(myStack);
