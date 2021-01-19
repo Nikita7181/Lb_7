@@ -28,29 +28,29 @@ void constructor(Queue& myQueue) // конструктор
 void push(Queue& myQueue, element& myelement)// функция заполнения
 {
     element* q = new element;// выделяем память под ячейки
-    q -> value = myelement.value; 
+    q -> value = myelement.value;
     if (myQueue.first == nullptr)// проверяем на заполненность
     {
         myQueue.first = q;// присваемпервому элементу и конец и начала списка
         myQueue.last = q;
     } else
     {
-        myQueue.last -> q_next = q;// присваеваем временной пременной следующее значения 
+        myQueue.last -> q_next = q;// присваеваем временной пременной следующее значения
         myQueue.last = q;// присваеваем новому элементу конец очереди
     }
     myQueue.count ++;// счетчик элементов
     
 }
 
-int size(Queue& myQueue)// функция опрделения размера очереди
+unsigned int size(Queue& myQueue)// функция опрделения размера очереди
 {
   return myQueue.count;
 }
 
 void print(Queue& myQueue)// функция печати
 {
-    element* temp = myQueue.first;
-    while (temp != nullptr)
+    element* temp = myQueue.first;// временная переменная
+    while (temp != nullptr)// Условие цикла
     {
         int element = temp -> value;// вытаскиваем значение из первого элемента
         cout << element << " ";// обычный вывод
@@ -60,10 +60,12 @@ void print(Queue& myQueue)// функция печати
 
 void pop_front(Queue &myQueue)// функция удаления первого элемента
 {
+    cout << "First element: " << myQueue.first -> value<< endl;
     element  *temp = myQueue.first;// временная переменная, чтобы запомнить начало списка
      myQueue.first = myQueue.first -> q_next;//назначаем началом списка второй элемент
      delete temp;// удаляем первыйй элемент, записанный во временную переменную
      myQueue.count --;// уменьшаем счетчки элементов
+     
 }
 
 void destructor (Queue& myQueue)// деструктор(работает на основе удаления преовго элемента)
@@ -88,7 +90,7 @@ int main()
     cin >> c;
     for (int i = 1; i <= c; ++i)
     {
-        cout << "enter " << "{" <<i << "}" << " element:";
+        cout << "enter " << i << " element:";
         cin >> new1;
         element.value = new1;
         push(myQueue, element);
