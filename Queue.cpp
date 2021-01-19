@@ -44,7 +44,7 @@ void push(Queue& myQueue, element& myelement)// функция заполнен�
 
 unsigned int size(Queue& myQueue)// функция опрделения размера очереди
 {
-  return myQueue.count;
+    return myQueue.count;
 }
 
 void print(Queue& myQueue)// функция печати
@@ -62,10 +62,10 @@ void pop_front(Queue &myQueue)// функция удаления первого 
 {
     cout << "First element: " << myQueue.first -> value<< endl;
     element  *temp = myQueue.first;// временная переменная, чтобы запомнить начало списка
-     myQueue.first = myQueue.first -> q_next;//назначаем началом списка второй элемент
-     delete temp;// удаляем первыйй элемент, записанный во временную переменную
-     myQueue.count --;// уменьшаем счетчки элементов
-     
+    myQueue.first = myQueue.first -> q_next;//назначаем началом списка второй элемент
+    delete temp;// удаляем первыйй элемент, записанный во временную переменную
+    myQueue.count --;// уменьшаем счетчки элементов
+    
 }
 
 void destructor (Queue& myQueue)// деструктор(работает на основе удаления преовго элемента)
@@ -98,7 +98,6 @@ int main()
     print(myQueue);
     cout << endl;
     cout << "Size:" << size(myQueue) << endl;
-    cout << "get the first element: " << myQueue.first -> value << endl;
     pop_front(myQueue);
     cout << "Size:" << size(myQueue) << endl;
     print(myQueue);
