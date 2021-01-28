@@ -56,13 +56,15 @@ void push(Stack& myStack, element& myelement)
     myStack.count ++; // счетчик элементов
 }
 
-element pop_last(Stack& myStack)// функция удаления последнего элемента
+int pop_last(Stack& myStack)// функция удаления последнего элемента
 {
-    cout << "The lst element: " << myStack.last -> value << endl;
+    int k = myStack.last -> value;
     element  *temp = myStack.last;// временная переменная, чтобы запомнить конец списка
     myStack.last = myStack.last -> prev;//назначаем концом списка второй элемен
     delete temp;// удаляем последний элемент, записанный во временную переменную
     myStack.count --;// уменьшаем счетчик
+    cout << "Last element: ";
+    return k;
 }
 
 void print(Stack& myStack)// функция печати
@@ -94,12 +96,12 @@ int main()
         push(myStack, myelement);
     }
     print(myStack);
-    cout << endl;
     cout << "Size:" << size(myStack) << endl;
-    pop_last(myStack);
+    cout << pop_last(myStack);
+    cout << endl;
     cout << "Size:" << size(myStack) << endl;
     print(myStack);
     destructor(myStack);
-    cout << "there is " << size(myStack) << " in queue" << endl;
+    cout << "Size:" << size(myStack) << endl;
     return 0;
 }
