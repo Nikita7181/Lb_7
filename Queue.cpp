@@ -58,14 +58,15 @@ void print(Queue& myQueue)// функция печати
     }
 }
 
-void pop_front(Queue &myQueue)// функция удаления первого элемента
+int pop_front(Queue &myQueue)// функция удаления первого элемента
 {
-    cout << "First element: " << myQueue.first -> value<< endl;
     element  *temp = myQueue.first;// временная переменная, чтобы запомнить начало списка
+    int k = myQueue.first->value;
     myQueue.first = myQueue.first -> q_next;//назначаем началом списка второй элемент
     delete temp;// удаляем первыйй элемент, записанный во временную переменную
     myQueue.count --;// уменьшаем счетчки элементов
-    
+    std::cout << "First element: ";
+    return k;
 }
 
 void destructor (Queue& myQueue)// деструктор(работает на основе удаления преовго элемента)
@@ -90,7 +91,7 @@ int main()
     cin >> c;
     for (int i = 1; i <= c; ++i)
     {
-        cout << "enter " << i << " element:";
+        cout << "enter " <<"{"<< i << "}"<< " =";
         cin >> new1;
         element.value = new1;
         push(myQueue, element);
@@ -98,10 +99,11 @@ int main()
     print(myQueue);
     cout << endl;
     cout << "Size:" << size(myQueue) << endl;
-    pop_front(myQueue);
+   std::cout << pop_front(myQueue)<<endl;
     cout << "Size:" << size(myQueue) << endl;
     print(myQueue);
+    cout << endl;
     destructor(myQueue);
-    cout << "there is " << size(myQueue) << " in queue" << endl;
+    cout << "Size: " << size(myQueue) << endl;
     return 0;
 }
