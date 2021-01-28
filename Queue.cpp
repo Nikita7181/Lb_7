@@ -99,7 +99,7 @@ int main()
     print(myQueue);
     cout << endl;
     cout << "Size:" << size(myQueue) << endl;
-   std::cout << pop_front(myQueue)<<endl;
+    cout << pop_front(myQueue)<<endl;
     cout << "Size:" << size(myQueue) << endl;
     print(myQueue);
     cout << endl;
